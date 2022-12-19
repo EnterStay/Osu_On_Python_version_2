@@ -264,7 +264,11 @@ def Menu():
 
         if stage == 'menu':
             if running:
-                width, height = pygame.display.Info().current_w, pygame.display.Info().current_h
+                width, height = 10, 10
+                try:
+                    width, height = pygame.display.Info().current_w, pygame.display.Info().current_h
+                except pygame.error:
+                    pass
                 new_surf = pygame.image.load('osu_jpg.jpg')
                 new_rect = new_surf.get_rect(
                     bottomright=(width, height))
@@ -275,4 +279,7 @@ def Menu():
         pygame.display.update()
 
 
-Menu()
+try:
+    Menu()
+except pygame.error:
+    pass
