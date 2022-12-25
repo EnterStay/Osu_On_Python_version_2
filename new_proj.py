@@ -3,6 +3,10 @@ import random
 import os
 import sys
 
+name_of_u = input("Введите имя пользователя: ")
+name_of_dir = "C:/Users/" + name_of_u + "/Downloads/data/"
+print(name_of_dir)
+
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 infoObject = pygame.display.Info()
@@ -26,15 +30,16 @@ def load_image(name, colorkey=None):
 
 
 def Play_Game():
+    global name_of_dir
     pygame.init()
-    pygame.mixer.music.load("C:/Users/UseR/PycharmProjects/pythonProject/data/Unravel.mp3")
+    pygame.mixer.music.load(name_of_dir + 'Unravel.mp3')
     pygame.mixer.music.play(-1)
     DISPLAYSURF = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     infoObject = pygame.display.Info()
     pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
 
-    green = pygame.image.load('C:/Users/UseR/PycharmProjects/pythonProject/data/green.png').convert()
-    blue = pygame.image.load('C:/Users/UseR/PycharmProjects/pythonProject/data/blue.png').convert()
+    green = pygame.image.load(name_of_dir + 'green.png').convert()
+    blue = pygame.image.load(name_of_dir + 'blue.png').convert()
 
     width, height = pygame.display.Info().current_w, pygame.display.Info().current_h
 
@@ -45,7 +50,7 @@ def Play_Game():
     pygame.display.flip()
     circles = []
 
-    dog_surf = pygame.image.load('C:/Users/UseR/PycharmProjects/pythonProject/data/Ghoul.jpg')
+    dog_surf = pygame.image.load(name_of_dir + 'Ghoul.jpg')
     dog_rect = dog_surf.get_rect(
         bottomright=(width, height))
     screen.blit(dog_surf, dog_rect)
@@ -78,7 +83,7 @@ def Play_Game():
                                pos, 25, 3)
         pygame.display.update()
         if time >= 0.53:
-            dog_surf = pygame.image.load('C:/Users/UseR/PycharmProjects/pythonProject/data/Ghoul.jpg')
+            dog_surf = pygame.image.load(name_of_dir + 'Ghoul.jpg')
             dog_rect = dog_surf.get_rect(
                 bottomright=(width, height))
             screen.blit(dog_surf, dog_rect)
@@ -101,7 +106,7 @@ def Play_Game():
             clock.tick(fps)
             if radius <= 70:
                 screen.blit(green, (width / 2, height / 2))
-                dog_surf = pygame.image.load('C:/Users/UseR/PycharmProjects/pythonProject/data/Ghoul.jpg')
+                dog_surf = pygame.image.load(name_of_dir + 'Ghoul.jpg')
                 dog_rect = dog_surf.get_rect(
                     bottomright=(width, height))
                 screen.blit(dog_surf, dog_rect)
@@ -228,8 +233,9 @@ def on_click_button_return():
 
 
 def Menu():
+    global name_of_dir
     pygame.mouse.set_visible(True)
-    pygame.mixer.music.load("C:/Users/UseR/PycharmProjects/pythonProject/data/ost.mp3")
+    pygame.mixer.music.load(name_of_dir + "ost.mp3")
     pygame.mixer.music.play(-1)
     pygame.init()
     screen_rect = screen.get_rect()
@@ -271,7 +277,7 @@ def Menu():
                     width, height = pygame.display.Info().current_w, pygame.display.Info().current_h
                 except pygame.error:
                     pass
-                new_surf = pygame.image.load('C:/Users/UseR/PycharmProjects/pythonProject/data/osu_jpg.jpg')
+                new_surf = pygame.image.load(name_of_dir + 'osu_jpg.jpg')
                 new_rect = new_surf.get_rect(
                     bottomright=(width, height))
                 screen.blit(new_surf, new_rect)
