@@ -3,6 +3,7 @@ import random
 import os
 import sys
 
+# Name of User PC
 name_of_u = input("Введите имя пользователя: ")
 name_of_dir = "C:/Users/" + name_of_u + "/Downloads/data/"
 print(name_of_dir)
