@@ -17,6 +17,8 @@ width, height = pygame.display.Info().current_w, pygame.display.Info().current_h
 
 size = width, height
 screen = pygame.display.set_mode(size)
+good = 0
+bad = 0
 
 
 def load_image(name, colorkey=None):
@@ -29,8 +31,38 @@ def load_image(name, colorkey=None):
     return image
 
 
+def End_Game():
+    global good
+    global bad
+    pygame.font.init()
+    pygame.mixer.music.pause()
+    sc = pygame.display.set_mode((width, height))
+    sc.fill((255, 255, 255))
+
+    f1 = pygame.font.Font(None, 36)
+    text1 = f1.render('Ваш результат: ' + str(good - bad), True,
+                      (180, 0, 0))
+
+    f2 = pygame.font.SysFont('serif', 48)
+    text2 = f2.render("[Esc] чтобы выйти", False,
+                      (0, 180, 0))
+
+    sc.blit(text1, (10, 50))
+    sc.blit(text2, (10, 100))
+    pygame.display.update()
+
+    while 1:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.key == pygame.K_ESCAPE:
+                Menu()
+
+
 def Play_Game():
     global name_of_dir
+    global good
+    global bad
     pygame.init()
     pygame.mixer.music.load(name_of_dir + 'Unravel.mp3')
     pygame.mixer.music.play(-1)
@@ -67,12 +99,18 @@ def Play_Game():
     patent_color = False
     v = 1
     radius_grow = False
+    global_time_end = 0
     pygame.mouse.set_visible(False)
 
     while running:
+
         time += clock.tick() / 1000 * v
         time_cleaner += clock.tick() / 1000 * v
-
+        global_time_end += clock.tick() / 1000 * v
+        print(global_time_end)
+        if global_time_end >= 0.53:
+            print("end")
+            End_Game()
         pos = pygame.mouse.get_pos()
         # giving color and shape to the circle
         if not patent_color:
@@ -106,6 +144,7 @@ def Play_Game():
             clock.tick(fps)
             if radius <= 70:
                 screen.blit(green, (width / 2, height / 2))
+                bad += 1
                 dog_surf = pygame.image.load(name_of_dir + 'Ghoul.jpg')
                 dog_rect = dog_surf.get_rect(
                     bottomright=(width, height))
@@ -144,8 +183,10 @@ def Play_Game():
                 if color == (225, 100, 190) or color == (255, 100, 190):
                     if 70 < radius < 80:
                         screen.blit(blue, (circles[0], circles[1]))
+                        good += 1
                 else:
                     screen.blit(green, (width / 2, height / 2))
+                    bad += 1
             else:
                 patent_color = False
         pygame.display.flip()
