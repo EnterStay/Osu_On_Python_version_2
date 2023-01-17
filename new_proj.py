@@ -5,7 +5,7 @@ import sys
 
 # Name of User PC
 name_of_u = os.getlogin()
-name_of_dir = "C:/Users/" + name_of_u + "/Downloads/data/"
+name_of_dir = "C:/Users/" + name_of_u + "/Downloads/Osu_On_Python_version_2-master"
 
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -20,7 +20,7 @@ screen = pygame.display.set_mode(size)
 good = 0
 bad = 0
 
-
+# Отрисовка изображений
 def load_image(name, colorkey=None):
     fullname = name
     # если файл не существует, то выходим
@@ -30,7 +30,7 @@ def load_image(name, colorkey=None):
     image = pygame.image.load(fullname)
     return image
 
-
+# Скрипт окончания игры
 def End_Game():
     global good
     global bad
@@ -58,7 +58,7 @@ def End_Game():
             elif event.key == pygame.K_ESCAPE:
                 Menu()
 
-
+# Скрипт игры
 def Play_Game():
     global name_of_dir
     global good
@@ -103,7 +103,7 @@ def Play_Game():
     pygame.mouse.set_visible(False)
 
     while running:
-
+        # Время
         time += clock.tick() / 1000 * v
         time_cleaner += clock.tick() / 1000 * v
         global_time_end += clock.tick() / 1000 * v
@@ -111,6 +111,7 @@ def Play_Game():
         if global_time_end >= 0.53:
             print("end")
             End_Game()
+        # Отрисовка курсора
         pos = pygame.mouse.get_pos()
         # giving color and shape to the circle
         if not patent_color:
@@ -121,6 +122,7 @@ def Play_Game():
                                pos, 25, 3)
         pygame.display.update()
         if time >= 0.53:
+            # Отрисовка кружков
             dog_surf = pygame.image.load(name_of_dir + 'Ghoul.jpg')
             dog_rect = dog_surf.get_rect(
                 bottomright=(width, height))
@@ -328,6 +330,7 @@ def Menu():
         pygame.display.update()
 
 # Топ
+
 try:
     Menu()
 except pygame.error:
