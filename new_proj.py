@@ -327,7 +327,7 @@ def Menu():
 
         pygame.display.update()
 
-
+# Топ
 try:
     Menu()
 except pygame.error:
